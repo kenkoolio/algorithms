@@ -1,0 +1,53 @@
+
+stringSubsets
+
+Given string, return an array of all in-order subsets of those characters. For example, stringSubsets("abc") = ["", "a", "b", "c", "bc", "ac", "ab", "abc"]. 
+
+// Two memos: subStr (containing a partial
+// string we've built so far), plus arr 
+// (containing valid setset strs). Whittle
+// str down by 1 char each time; explore 2
+// paths: 1) include char in our candidate
+// subStr, and 2) don't. Once str is empty,
+// add subStr to our list of valid subsets.
+
+function allSubsets(str, subStr, arr)
+{
+  if (arr === undefined)    { arr = []; }
+  if (subStr === undefined) { subStr = "";}
+
+  if (str == "") {
+    arr.push(subStr);
+    return arr;
+  }
+
+  var first = str[0];   // consume str, one
+  str = str.slice(1);   // char at a time.
+
+  allSubsets(str, subStr, arr);
+  allSubsets(str, subStr + first, arr);
+
+  return arr;
+}
+
+
+///Daniel's version
+
+
+function strSubsets(str, substr, arr){
+  if (!substr){
+    substr = "";
+  }
+  if (!arr){
+    arr = [];
+    console.log(arr);
+  }
+  if (str === ""){
+    arr.push(substr);
+  } else {
+    strSubsets(str.slice(1), substr, arr);
+    substr += str[0];
+    strSubsets(str.slice(1), substr, arr);
+  }
+  return arr;
+}
